@@ -6,7 +6,7 @@ import torch.nn as nn
 class MyModel(nn.Module):
     def __init__(self, num_classes: int = 1000, dropout: float = 0.7) -> None:
 
-        super(MyModel, self).__init__()
+        super().__init__()
 
         # YOUR CODE HERE
         # Define a CNN architecture. Remember to use the variable num_classes
@@ -52,7 +52,8 @@ class MyModel(nn.Module):
         # YOUR CODE HERE: process the input tensor through the
         # feature extractor, the pooling and the final linear
         # layers (if appropriate for the architecture chosen)
-        return self.model(x)
+        x = self.model(x)
+        return x
 
 
 ######################################################################################
