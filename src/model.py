@@ -37,14 +37,15 @@ class MyModel(nn.Module):
             nn.BatchNorm2d(256),
             nn.ReLU(),
             nn.MaxPool2d(2, 2), # -> 7x7x256
-
+            
             nn.Flatten(),
 
-            nn.Linear(256 * 7 * 7, 512), 
+            nn.Linear(256 * 7 * 7, 512),
+            nn.Linear(512, 128), 
             nn.Dropout(p=dropout),
-            nn.BatchNorm1d(512),
+            nn.BatchNorm1d(128),
             nn.ReLU(),
-            nn.Linear(512, num_classes)
+            nn.Linear(128, num_classes)
         )
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
