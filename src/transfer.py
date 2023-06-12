@@ -4,7 +4,7 @@ import torchvision.models as models
 import torch.nn as nn
 
 
-def get_model_transfer_learning(model_name="resnet18", n_classes=50):
+def get_model_transfer_learning(model_name="resnet18", n_classes: int =50):
 
     # Get the requested architecture
     if hasattr(models, model_name):
@@ -21,8 +21,7 @@ def get_model_transfer_learning(model_name="resnet18", n_classes=50):
     # Freeze all parameters in the model
     # HINT: loop over all parameters. If "param" is one parameter,
     # "param.requires_grad = False" freezes it
-    for param in model_transfer.parameters():
-        if param:
+    for param in model_transfer.parameters():s
             param.requires_grad = False
 
     # Add the linear layer at the end with the appropriate number of classes
