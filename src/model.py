@@ -6,7 +6,7 @@ import torch.nn as nn
 class MyModel(nn.Module):
     def __init__(self, num_classes: int = 1000, dropout: float = 0.7) -> None:
 
-        super(MyModel, self).__init__()
+        super().__init__()
 
         # YOUR CODE HERE
         # Define a CNN architecture. Remember to use the variable num_classes
@@ -37,21 +37,23 @@ class MyModel(nn.Module):
             nn.BatchNorm2d(256),
             nn.ReLU(),
             nn.MaxPool2d(2, 2), # -> 7x7x256
-
+            
             nn.Flatten(),
 
-            nn.Linear(256 * 7 * 7, 512), 
+            nn.Linear(256 * 7 * 7, 512),
+            nn.Linear(512, 128), 
             nn.Dropout(p=dropout),
-            nn.BatchNorm1d(512),
+            nn.BatchNorm1d(128),
             nn.ReLU(),
-            nn.Linear(512, num_classes)
+            nn.Linear(128, num_classes)
         )
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         # YOUR CODE HERE: process the input tensor through the
         # feature extractor, the pooling and the final linear
         # layers (if appropriate for the architecture chosen)
-        return self.model(x)
+        x = self.model(x)
+        return x
 
 
 ######################################################################################
@@ -72,7 +74,7 @@ def test_model_construction(data_loaders):
     model = MyModel(num_classes=23, dropout=0.3)
 
     dataiter = iter(data_loaders["train"])
-    images, labels = dataiter.next()
+    images, labels = next(dataiter)
 
     out = model(images)
 
